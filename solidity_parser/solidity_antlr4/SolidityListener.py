@@ -1,6 +1,6 @@
-# Generated from solidity-antlr4/Solidity.g4 by ANTLR 4.13.1
+# Generated from solidity-antlr4/Solidity.g4 by ANTLR 4.9.3
 from antlr4 import *
-if "." in __name__:
+if __name__ is not None and "." in __name__:
     from .SolidityParser import SolidityParser
 else:
     from SolidityParser import SolidityParser
