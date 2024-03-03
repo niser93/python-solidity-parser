@@ -519,8 +519,8 @@ class SolidityVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SolidityParser#line_comment.
-    def visitLine_comment(self, ctx:SolidityParser.Line_commentContext):
+    # Visit a parse tree produced by SolidityParser#lineComment.
+    def visitLineComment(self, ctx:SolidityParser.LineCommentContext):
         return self.visitChildren(ctx)
 
 

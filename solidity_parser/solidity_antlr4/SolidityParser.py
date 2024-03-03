@@ -803,7 +803,7 @@ class SolidityParser ( Parser ):
     RULE_overrideSpecifier = 99
     RULE_stringLiteral = 100
     RULE_comment = 101
-    RULE_line_comment = 102
+    RULE_lineComment = 102
 
     ruleNames =  [ "sourceUnit", "pragmaDirective", "pragmaName", "pragmaValue", 
                    "version", "versionOperator", "versionConstraint", "importDeclaration", 
@@ -836,7 +836,7 @@ class SolidityParser ( Parser ):
                    "assemblyCase", "assemblyFunctionDefinition", "assemblyFunctionReturns", 
                    "assemblyFor", "assemblyIf", "assemblyLiteral", "tupleExpression", 
                    "numberLiteral", "identifier", "hexLiteral", "overrideSpecifier", 
-                   "stringLiteral", "comment", "line_comment" ]
+                   "stringLiteral", "comment", "lineComment" ]
 
     EOF = Token.EOF
     T__0=1
@@ -1078,11 +1078,11 @@ class SolidityParser ( Parser ):
                 return self.getTypedRuleContext(SolidityParser.CommentContext,i)
 
 
-        def line_comment(self, i:int=None):
+        def lineComment(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SolidityParser.Line_commentContext)
+                return self.getTypedRuleContexts(SolidityParser.LineCommentContext)
             else:
-                return self.getTypedRuleContext(SolidityParser.Line_commentContext,i)
+                return self.getTypedRuleContext(SolidityParser.LineCommentContext,i)
 
 
         def getRuleIndex(self):
@@ -1181,7 +1181,7 @@ class SolidityParser ( Parser ):
 
                 elif la_ == 13:
                     self.state = 218
-                    self.line_comment()
+                    self.lineComment()
                     pass
 
 
@@ -2073,8 +2073,8 @@ class SolidityParser ( Parser ):
             return self.getTypedRuleContext(SolidityParser.CommentContext,0)
 
 
-        def line_comment(self):
-            return self.getTypedRuleContext(SolidityParser.Line_commentContext,0)
+        def lineComment(self):
+            return self.getTypedRuleContext(SolidityParser.LineCommentContext,0)
 
 
         def getRuleIndex(self):
@@ -2168,7 +2168,7 @@ class SolidityParser ( Parser ):
             elif la_ == 11:
                 self.enterOuterAlt(localctx, 11)
                 self.state = 348
-                self.line_comment()
+                self.lineComment()
                 pass
 
 
@@ -4944,8 +4944,8 @@ class SolidityParser ( Parser ):
             return self.getTypedRuleContext(SolidityParser.CommentContext,0)
 
 
-        def line_comment(self):
-            return self.getTypedRuleContext(SolidityParser.Line_commentContext,0)
+        def lineComment(self):
+            return self.getTypedRuleContext(SolidityParser.LineCommentContext,0)
 
 
         def getRuleIndex(self):
@@ -5075,7 +5075,7 @@ class SolidityParser ( Parser ):
             elif la_ == 17:
                 self.enterOuterAlt(localctx, 17)
                 self.state = 677
-                self.line_comment()
+                self.lineComment()
                 pass
 
 
@@ -9330,7 +9330,7 @@ class SolidityParser ( Parser ):
         return localctx
 
 
-    class Line_commentContext(ParserRuleContext):
+    class LineCommentContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -9341,29 +9341,29 @@ class SolidityParser ( Parser ):
             return self.getToken(SolidityParser.LINE_COMMENT, 0)
 
         def getRuleIndex(self):
-            return SolidityParser.RULE_line_comment
+            return SolidityParser.RULE_lineComment
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLine_comment" ):
-                listener.enterLine_comment(self)
+            if hasattr( listener, "enterLineComment" ):
+                listener.enterLineComment(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLine_comment" ):
-                listener.exitLine_comment(self)
+            if hasattr( listener, "exitLineComment" ):
+                listener.exitLineComment(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLine_comment" ):
-                return visitor.visitLine_comment(self)
+            if hasattr( visitor, "visitLineComment" ):
+                return visitor.visitLineComment(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def line_comment(self):
+    def lineComment(self):
 
-        localctx = SolidityParser.Line_commentContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 204, self.RULE_line_comment)
+        localctx = SolidityParser.LineCommentContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 204, self.RULE_lineComment)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1197

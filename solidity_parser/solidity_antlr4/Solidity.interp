@@ -377,7 +377,7 @@ hexLiteral
 overrideSpecifier
 stringLiteral
 comment
-line_comment
+lineComment
 
 
 atn:
