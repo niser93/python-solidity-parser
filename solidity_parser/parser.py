@@ -108,6 +108,14 @@ class AstVisitor(SolidityVisitor):
 
     # ********************************************************
 
+    def visitComment(self, ctx:SolidityParser.CommentContext):
+        return Node(ctx=ctx,
+                    type="Comment")
+
+    def visitLine_comment(self, ctx:SolidityParser.Line_commentContext):
+        return Node(ctx=ctx,
+                    type="LineComment")
+
     def visitSourceUnit(self, ctx):
         return Node(ctx=ctx,
                     type="SourceUnit",
