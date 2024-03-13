@@ -464,7 +464,9 @@ class AstVisitor(SolidityVisitor):
         return Node(ctx=ctx,
                     type='Mapping',
                     keyType=self.visit(ctx.mappingKey()),
-                    valueType=self.visit(ctx.typeName()))
+                    keyName=self.visit(ctx.mappingKeyName()),
+                    valueType=self.visit(ctx.typeName()),
+                    valueName=self.visit(ctx.mappingValueName()))
 
     def visitModifierDefinition(self, ctx):
         parameters = []
