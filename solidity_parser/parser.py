@@ -710,16 +710,17 @@ class AstVisitor(SolidityVisitor):
             typeName=type,
             name=name,
             expression=expression,
-            visibility=visibility,
             isStateVar=True,
-            isDeclaredConst=isDeclaredConst,
-            isDeclaredImmutable=isDeclaredImmutable,
             isIndexed=False)
 
         return Node(ctx=ctx,
                     type='StateVariableDeclaration',
                     variables=[decl],
-                    initialValue=expression)
+                    initialValue=expression,
+                    visibility=visibility,
+                    isDeclaredConst=isDeclaredConst,
+                    isDeclaredImmutable=isDeclaredImmutable,
+                    )
 
     def visitForStatement(self, ctx):
         conditionExpression = self.visit(ctx.expressionStatement()) if ctx.expressionStatement() else None
