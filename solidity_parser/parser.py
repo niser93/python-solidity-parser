@@ -162,7 +162,7 @@ class AstVisitor(SolidityVisitor):
         return Node(ctx=ctx,
                     type="UsingForDeclaration",
                     typeName=typename,
-                    libraryName=ctx.getChild(1))
+                    libraryName=self.visit(ctx.getChild(1)))
 
     def visitInheritanceSpecifier(self, ctx: SolidityParser.InheritanceSpecifierContext):
         return Node(ctx=ctx,
