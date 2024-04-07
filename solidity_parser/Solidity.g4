@@ -542,3 +542,6 @@ COMMENT
 LINE_COMMENT
     : '//' ~[\r\n]* -> channel(HIDDEN)
     ;
+
+WS
+  : [ \t\r\n\u000C]+ -> skip ;

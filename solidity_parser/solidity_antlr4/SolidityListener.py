@@ -917,23 +917,5 @@ class SolidityListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SolidityParser#comment.
-    def enterComment(self, ctx:SolidityParser.CommentContext):
-        pass
-
-    # Exit a parse tree produced by SolidityParser#comment.
-    def exitComment(self, ctx:SolidityParser.CommentContext):
-        pass
-
-
-    # Enter a parse tree produced by SolidityParser#lineComment.
-    def enterLineComment(self, ctx:SolidityParser.LineCommentContext):
-        pass
-
-    # Exit a parse tree produced by SolidityParser#lineComment.
-    def exitLineComment(self, ctx:SolidityParser.LineCommentContext):
-        pass
-
-
 
 del SolidityParser
