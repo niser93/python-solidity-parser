@@ -17,7 +17,7 @@ class Node(dict):
     provide a dict interface and object attrib access
     """
     ENABLE_LOC = False
-    NONCHILD_KEYS = ("type","name","loc")
+    NONCHILD_KEYS = ("type", "name", "loc")
 
     def __init__(self, ctx, **kwargs):
         for k, v in kwargs.items():
@@ -108,13 +108,15 @@ class AstVisitor(SolidityVisitor):
 
     # ********************************************************
 
-    def visitComment(self, ctx:SolidityParser.CommentContext):
+    def visitSourceUnit(self, ctx):
         return Node(ctx=ctx,
-                    type="Comment")
+                    type="SourceUnit",
+                    children=self.visit(ctx.children[:-1]))  # skip EOF
 
-    def visitLineComment(self, ctx:SolidityParser.LineCommentContext):
+    def visitComment(self, ctx: SolidityParser.CommentContext):
         return Node(ctx=ctx,
-                    type="LineComment")
+                    type="Comment",
+                    text=ctx.getText())
 
 
 def parse(text, start="sourceUnit", loc=False, strict=False):
@@ -152,10 +154,10 @@ def visit(node, callback_object):
         return node
 
     # call callback if it is available
-    if hasattr(callback_object, "visit"+node.type):
-        getattr(callback_object, "visit"+node.type)(node)
+    if hasattr(callback_object, "visit" + node.type):
+        getattr(callback_object, "visit" + node.type)(node)
 
-    for k,v in node.items():
+    for k, v in node.items():
         if k in node.NONCHILD_KEYS:
             # skip non child items
             continue
@@ -207,14 +209,13 @@ def objectify(start_node):
             self.constructor = None
             self.inherited_names = {}
 
-
         def visitEnumDefinition(self, _node):
-            self.enums[_node.name]=_node
-            self.names[_node.name]=_node
+            self.enums[_node.name] = _node
+            self.names[_node.name] = _node
 
         def visitStructDefinition(self, _node):
-            self.structs[_node.name]=_node
-            self.names[_node.name]=_node
+            self.structs[_node.name] = _node
+            self.names[_node.name] = _node
 
         def visitStateVariableDeclaration(self, _node):
 
@@ -246,14 +247,13 @@ def objectify(start_node):
             self.names[_node.name] = current_function
             self.events[_node.name] = current_function
 
-
         def visitFunctionDefinition(self, _node, _definition_type=None):
 
             class FunctionObject(object):
 
                 def __init__(self, node):
                     self._node = node
-                    if(node.type=="FunctionDefinition"):
+                    if (node.type == "FunctionDefinition"):
                         self.visibility = node.visibility
                         self.stateMutability = node.stateMutability
                         self.isConstructor = node.isConstructor
@@ -263,8 +263,6 @@ def objectify(start_node):
                     self.returns = {}
                     self.declarations = {}
                     self.identifiers = []
-                    
-                    
 
             class FunctionArgumentVisitor(object):
 
@@ -295,7 +293,7 @@ def objectify(start_node):
 
             current_function = FunctionObject(_node)
             self.names[_node.name] = current_function
-            if _definition_type=="ModifierDefinition":
+            if _definition_type == "ModifierDefinition":
                 self.modifiers[_node.name] = current_function
             else:
                 self.functions[_node.name] = current_function
@@ -308,7 +306,6 @@ def objectify(start_node):
             current_function.arguments = funcargvisitor.parameters
             current_function.declarations.update(current_function.arguments)
 
-
             ## get returnParams
             if _node.get("returnParameters"):
                 # because modifiers dont
@@ -316,7 +313,6 @@ def objectify(start_node):
                 visit(_node.returnParameters, funcargvisitor)
                 current_function.returns = funcargvisitor.parameters
                 current_function.declarations.update(current_function.returns)
-
 
             ## get vardecs in body
             vardecs = VarDecVisitor()
@@ -330,7 +326,6 @@ def objectify(start_node):
 
         def visitModifierDefinition(self, _node):
             return self.visitFunctionDefinition(_node, "ModifierDefinition")
-
 
     class ObjectifySourceUnitVisitor(object):
 

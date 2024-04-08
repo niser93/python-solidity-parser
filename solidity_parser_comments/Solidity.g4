@@ -5,21 +5,18 @@
 grammar Solidity;
 
 sourceUnit
-  : (comment | line_comment | CODE_LINE)* EOF ;
+  : (comment)* EOF ;
 
-comment : COMMENT;
-line_comment : LINE_COMMENT;
+comment : COMMENT | LINE_COMMENT;
 
 COMMENT
-    : '/*' .*? '*/'
+    : '/*' ANYCHAR*? '*/'
     ;
 
-LINE_COMMENT
-    : '//' ~[\r\n]*
-    ;
+LINE_COMMENT : '//' ~[\r\n]*;
 
-CODE_LINE
-    : ANYCHAR+ ~[\r\n]*
-    ;
+fragment ANYCHAR : .;
+UNKNOWN: . -> skip;
 
-ANYCHAR : .;
+WS
+  : [ \t\r\n\u000C]+ -> skip ;
